@@ -3,9 +3,12 @@ package com.marimar.store.infraestructure.persistance;
 
 import com.marimar.store.domain.entity.Item;
 import com.marimar.store.domain.persistance.ItemPersistance;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+
+@Repository
 public class ItemPersistanceImpl implements ItemPersistance {
 
     private final ItemRepository itemRepository;
