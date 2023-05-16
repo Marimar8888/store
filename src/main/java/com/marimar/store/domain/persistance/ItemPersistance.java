@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ItemPersistance {
+    List<Item> getAllItems();
     List<Item> getAllItemsByCategory(Long categoryId);
     Optional<Item> getItemById(Long itemId);
     Item saveItem(Item item);
