@@ -1,9 +1,13 @@
 package com.marimar.store.infraestructure.persistance;
 
 
+import com.marimar.store.infraestructure.specs.ItemSpecification;
 import com.marimar.store.domain.entity.Item;
 import com.marimar.store.domain.persistance.ItemPersistance;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+import com.marimar.store.infraestructure.specs.shared.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,5 +44,11 @@ public class ItemPersistanceImpl implements ItemPersistance {
     @Override
     public void deleteItem(Long itemId) {
         this.itemRepository.deleteById(itemId);
+    }
+
+    @Override
+    public Page<Item> findAll(Pageable pageable, String filters) {
+       ItemSpecification specification = new ItemSpecification(SearchCriteriaHelper.fromFilterString(filters));
+        return itemRepository.findAll(specification, pageable);
     }
 }

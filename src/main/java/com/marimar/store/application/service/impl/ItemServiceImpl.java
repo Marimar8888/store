@@ -5,6 +5,8 @@ import com.marimar.store.application.mapper.ItemMapper;
 import com.marimar.store.application.service.ItemService;
 import com.marimar.store.domain.entity.Item;
 import com.marimar.store.domain.persistance.ItemPersistance;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,5 +48,11 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public void deleteItem(Long itemId) {
         this.itemPersistance.deleteItem(itemId);
+    }
+
+    @Override
+    public List<ItemDTO> getItemByCriteriaStringPaged(Pageable pageable, String filter) {
+        Page<Item> itemPage = this.itemPersistance.findAll(pageable, filter);
+        return this.itemMapper.toDto(itemPage.getContent());
     }
 }
