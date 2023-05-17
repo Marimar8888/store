@@ -51,8 +51,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemDTO> getItemByCriteriaStringPaged(Pageable pageable, String filter) {
+    public Page<ItemDTO> getItemByCriteriaStringPaged(Pageable pageable, String filter) {
         Page<Item> itemPage = this.itemPersistance.findAll(pageable, filter);
-        return this.itemMapper.toDto(itemPage.getContent());
+        return itemPage.map(itemMapper::toDto);
     }
 }

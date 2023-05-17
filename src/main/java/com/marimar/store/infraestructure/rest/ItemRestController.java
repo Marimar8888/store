@@ -2,6 +2,7 @@ package com.marimar.store.infraestructure.rest;
 
 import com.marimar.store.application.dto.ItemDTO;
 import com.marimar.store.application.service.ItemService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,9 +34,9 @@ public class ItemRestController {
 
     @CrossOrigin
     @GetMapping(value = "/items", produces = "application/json")
-    ResponseEntity<List<ItemDTO>> getItemsByCriteriaPaged(@RequestParam(value="filter") String filter, Pageable pageable){
-        List<ItemDTO> items = this.itemService.getItemByCriteriaStringPaged(pageable, filter);
-        return new ResponseEntity<>(items, HttpStatus.OK);
+    ResponseEntity<Page<ItemDTO>> getItemsByCriteriaPaged(@RequestParam(value="filter", required = false) String filter, Pageable pageable){
+        Page<ItemDTO> items = this.itemService.getItemByCriteriaStringPaged(pageable, filter);
+        return new ResponseEntity<Page<ItemDTO>>(items, HttpStatus.OK);
     }
 
     @CrossOrigin
