@@ -42,4 +42,10 @@ public class CategoryServiceImpl implements CategoryService {
     public void deleteCategory(Long categoryId) {
         this.categoryPersistance.deleteCategory(categoryId);
     }
+
+    @Override
+    public List<CategoryDTO> getAllCategoriesByName(String partialName) {
+        List<Category> categories = this.categoryPersistance.getCategoryByName(partialName);
+        return categoryMapper.toDto(categories);
+    }
 }
